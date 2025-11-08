@@ -6,6 +6,7 @@ import { LanguageSection } from "@/components/LanguageSection";
 import { Gallery } from "@/components/Gallery";
 import { ResguardoMap } from "@/components/ResguardoMap";
 import { CulturalVideos } from "@/components/CulturalVideos";
+import { FestivosCalendar } from "@/components/FestivosCalendar";
 
 export default function Community() {
   return (
@@ -27,6 +28,7 @@ export default function Community() {
         <HistoryCulture />
         <LanguageSection />
         <CulturalVideos />
+        <FestivosCalendar />
         <Gallery />
       </main>
       <Footer />
