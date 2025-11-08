@@ -4,6 +4,8 @@ import { AboutCommunity } from "@/components/AboutCommunity";
 import { HistoryCulture } from "@/components/HistoryCulture";
 import { LanguageSection } from "@/components/LanguageSection";
 import { Gallery } from "@/components/Gallery";
+import { ResguardoMap } from "@/components/ResguardoMap";
+import { CulturalVideos } from "@/components/CulturalVideos";
 
 export default function Community() {
   return (
@@ -21,8 +23,10 @@ export default function Community() {
           </div>
         </div>
         <AboutCommunity />
+        <ResguardoMap />
         <HistoryCulture />
         <LanguageSection />
+        <CulturalVideos />
         <Gallery />
       </main>
       <Footer />
