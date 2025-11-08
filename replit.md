@@ -22,8 +22,11 @@ Plataforma web dedicada a preservar y promover el idioma y la cultura del pueblo
 ### 🌍 Contenido Cultural
 - **Sección Hero**: Imagen cultural con llamado a la acción
 - **Sobre la Comunidad**: Estadísticas de población, regiones y hablantes
+- **Mapa del Resguardo**: Google Maps embed del Resguardo Alto Río Bojayá
 - **Historia y Cultura**: Timeline histórico y aspectos culturales (artesanías, música, ceremonias)
 - **El Idioma Emberá**: Características lingüísticas y frases comunes
+- **Videos Culturales**: 2 videos de YouTube sobre danzas y cultura Emberá
+- **Calendario de Festivos**: Google Calendar de festivos en Colombia
 - **Galería Cultural**: Colección de imágenes con lightbox modal
 
 ## Tecnologías Utilizadas
@@ -59,8 +62,11 @@ Plataforma web dedicada a preservar y promover el idioma y la cultura del pueblo
 │   │   │   ├── Hero.tsx                # Sección hero
 │   │   │   ├── Translator.tsx          # Componente traductor
 │   │   │   ├── AboutCommunity.tsx      # Info comunidad
+│   │   │   ├── ResguardoMap.tsx        # Mapa Google Maps del resguardo
 │   │   │   ├── HistoryCulture.tsx      # Historia y cultura
 │   │   │   ├── LanguageSection.tsx     # Info del idioma
+│   │   │   ├── CulturalVideos.tsx      # Videos de YouTube
+│   │   │   ├── FestivosCalendar.tsx    # Calendario de festivos
 │   │   │   └── Gallery.tsx             # Galería de imágenes
 │   │   ├── pages/
 │   │   │   ├── Home.tsx                # Página principal
@@ -192,6 +198,9 @@ El proyecto ha pasado todas las pruebas end-to-end que verifican:
 - [x] Traductor bidireccional funcional
 - [x] Base de datos PostgreSQL con 81 palabras
 - [x] Páginas de información cultural completas
+- [x] Mapa interactivo del Resguardo Alto Río Bojayá (Google Maps)
+- [x] Videos culturales de YouTube embebidos (Danza del Pato, Cultura Emberá)
+- [x] Calendario de festivos en Colombia (Google Calendar)
 - [x] Galería de imágenes con lightbox
 - [x] Búsqueda en diccionario
 - [x] Diseño responsive
