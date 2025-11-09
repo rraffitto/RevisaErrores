@@ -73,14 +73,15 @@ app.use((req, res, next) => {
   // It is the only port that is not firewalled.
   const port = parseInt(process.env.PORT || '5000', 10);
   
-  // Use localhost for Windows compatibility, 0.0.0.0 for cloud deployments
-  const host = process.env.HOST || "localhost";
+  // Use 127.0.0.1 (IPv4) by default for Windows compatibility
+  // Set HOST=0.0.0.0 for cloud deployments
+  const host = process.env.HOST || "127.0.0.1";
   
   server.listen({
     port,
     host,
     reusePort: true,
   }, () => {
-    log(`serving on port ${port}`);
+    log(`serving on http://${host}:${port}`);
   });
 })();

@@ -49,7 +49,19 @@ if (Test-Path ".env") {
 # Copiar .env.windows a .env
 Write-Host "Creando archivo .env..." -ForegroundColor Yellow
 Copy-Item -Path ".env.windows" -Destination ".env" -Force
-Write-Host "   OK Archivo .env creado" -ForegroundColor Green
+
+# FORZAR HOST=127.0.0.1 para Windows (sobrescribir cualquier valor existente)
+$envContent = Get-Content ".env" -Raw
+if ($envContent -match "(?m)^HOST=.*") {
+    # Reemplazar HOST existente (solo lineas que EMPIEZAN con HOST=)
+    $envContent = $envContent -replace "(?m)^HOST=.*", "HOST=127.0.0.1"
+} else {
+    # Agregar HOST si no existe
+    $envContent = $envContent + "`nHOST=127.0.0.1`n"
+}
+Set-Content ".env" -Value $envContent -NoNewline
+
+Write-Host "   OK Archivo .env creado con HOST=127.0.0.1" -ForegroundColor Green
 Write-Host ""
 
 # Solicitar contrasena de PostgreSQL
@@ -110,5 +122,5 @@ Write-Host "3. Iniciar el servidor:" -ForegroundColor White
 Write-Host "   .\scripts\windows\dev.ps1" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "4. Abrir en el navegador:" -ForegroundColor White
-Write-Host "   http://localhost:3000" -ForegroundColor Cyan
+Write-Host "   http://127.0.0.1:5000" -ForegroundColor Cyan
 Write-Host ""

@@ -1,0 +1,146 @@
+
+Node.js v24.11.0
+PS E:\RevisaErrores> .\scripts\windows\dev.ps1
+============================================
+  Iniciando Servidor de Desarrollo
+============================================
+
+Iniciando servidor en modo desarrollo...
+
+   Puerto: 3000
+   URL: http://localhost:3000
+
+Presiona Ctrl+C para detener el servidor
+
+============================================
+
+node:events:486
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen ENOTSUP: operation not supported on socket ::1:3000
+    at Server.setupListenHandle [as _listen2] (node:net:1918:21)
+    at listenInCluster (node:net:1997:12)
+    at GetAddrInfoReqWrap.callback (node:net:2206:7)
+    at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:dns:134:8)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1976:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+  code: 'ENOTSUP',
+  errno: -4049,
+  syscall: 'listen',
+  address: '::1',
+  port: 3000
+}
+
+Node.js v24.11.0
+PS E:\RevisaErrores> npm install
+
+up to date, audited 583 packages in 4s
+
+73 packages are looking for funding
+  run `npm fund` for details
+
+8 vulnerabilities (3 low, 5 moderate)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+PS E:\RevisaErrores> npm audit fix --force
+npm warn using --force Recommended protections disabled.
+npm warn audit Updating drizzle-kit to 0.18.1, which is a SemVer major change.
+npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+npm warn deprecated glob@8.1.0: Glob versions prior to v9 are no longer supported
+
+added 56 packages, removed 29 packages, changed 5 packages, and audited 610 packages in 15s
+
+77 packages are looking for funding
+  run `npm fund` for details
+
+# npm audit report
+
+esbuild  <=0.24.2
+Severity: moderate
+esbuild enables any website to send any requests to the development server and read the response - https://github.com/advisories/GHSA-67mh-4wv8-2f99
+fix available via `npm audit fix --force`
+Will install drizzle-kit@0.31.6, which is a breaking change
+node_modules/drizzle-kit/node_modules/esbuild
+node_modules/vite/node_modules/esbuild
+  drizzle-kit  0.9.1 - 0.9.54 || 0.12.9 - 0.18.1 || 0.19.2-9340465 - 0.30.6 || 0.31.7-82993ae - 1.0.0-beta.1-fd5d1e8
+  Depends on vulnerable versions of esbuild
+  node_modules/drizzle-kit
+  vite  0.11.0 - 6.1.6
+  Depends on vulnerable versions of esbuild
+  node_modules/vite
+
+3 moderate severity vulnerabilities
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+PS E:\RevisaErrores> npx cross-env NODE_ENV=development tsx server/index.ts
+node:events:486
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen ENOTSUP: operation not supported on socket ::1:3000
+    at Server.setupListenHandle [as _listen2] (node:net:1918:21)
+    at listenInCluster (node:net:1997:12)
+    at GetAddrInfoReqWrap.callback (node:net:2206:7)
+    at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:dns:134:8)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1976:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+  code: 'ENOTSUP',
+  errno: -4049,
+  syscall: 'listen',
+  address: '::1',
+  port: 3000
+}
+
+Node.js v24.11.0
+PS E:\RevisaErrores> .\scripts\windows\dev.ps1
+============================================
+  Iniciando Servidor de Desarrollo
+============================================
+
+Iniciando servidor en modo desarrollo...
+
+   Puerto: 3000
+   URL: http://localhost:3000
+
+Presiona Ctrl+C para detener el servidor
+
+============================================
+
+node:events:486
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen ENOTSUP: operation not supported on socket ::1:3000
+    at Server.setupListenHandle [as _listen2] (node:net:1918:21)
+    at listenInCluster (node:net:1997:12)
+    at GetAddrInfoReqWrap.callback (node:net:2206:7)
+    at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:dns:134:8)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1976:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+  code: 'ENOTSUP',
+  errno: -4049,
+  syscall: 'listen',
+  address: '::1',
+  port: 3000
+}
+
+Node.js v24.11.0
+PS E:\RevisaErrores> npm start
+
+> rest-express@1.0.0 start
+> NODE_ENV=production node dist/index.js
+
+"NODE_ENV" no se reconoce como un comando interno o externo,
+programa o archivo por lotes ejecutable.
+PS E:\RevisaErrores>
