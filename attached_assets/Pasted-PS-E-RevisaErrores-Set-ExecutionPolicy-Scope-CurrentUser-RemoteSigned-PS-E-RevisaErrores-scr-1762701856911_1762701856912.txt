@@ -1,0 +1,50 @@
+PS E:\RevisaErrores> Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+PS E:\RevisaErrores> .\scripts\windows\setup.ps1
+En E:\RevisaErrores\scripts\windows\setup.ps1: 106 Carácter: 38
++ Write-Host "2. Cargar los datos (264 palabras):" -ForegroundColor
+Whi ...
++                                      ~~~~~~~~
+Token 'palabras' inesperado en la expresión o la instrucción.
+En E:\RevisaErrores\scripts\windows\setup.ps1: 106 Carácter: 37
++ Write-Host "2. Cargar los datos (264 palabras):" -ForegroundColor
+Whi ...
++                                     ~
+Falta el paréntesis de cierre ')' en la expresión.
+En E:\RevisaErrores\scripts\windows\setup.ps1: 106 Carácter: 46
++ Write-Host "2. Cargar los datos (264 palabras):" -ForegroundColor
+Whi ...
++                                              ~
+Token ')' inesperado en la expresión o la instrucción.
+En E:\RevisaErrores\scripts\windows\setup.ps1: 113 Carácter: 37
++ Write-Host "   http://localhost:3000" -ForegroundColor Cyan
++                                     ~~~~~~~~~~~~~~~~~~~~~~~
+Falta la cadena en el terminador: ".
+    + CategoryInfo          : ParserError: (:) [], ParseException
+    + FullyQualifiedErrorId : UnexpectedToken
+
+PS E:\RevisaErrores> .\scripts\windows\dev.ps1
+============================================
+  Iniciando Servidor de Desarrollo
+============================================
+
+âŒ ERROR: El archivo .env no existe
+
+Ejecuta primero el script de configuraciÃ³n:
+   .\scripts\windows\setup.ps1
+
+PS E:\RevisaErrores> npx cross-env NODE_ENV=development tsx server/index.ts
+Need to install the following packages:
+cross-env@10.1.0
+Ok to proceed? (y) y
+
+E:\RevisaErrores\server\db.ts:10
+  throw new Error(
+        ^
+
+Error: DATABASE_URL must be set. Did you forget to provision a database?
+    at <anonymous> (E:\RevisaErrores\server\db.ts:10:9)
+    at ModuleJob.run (node:internal/modules/esm/module_job:377:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:691:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.11.0

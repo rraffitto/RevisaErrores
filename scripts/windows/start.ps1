@@ -1,18 +1,18 @@
 # ============================================
-# Script de Producción para Windows 11
-# Traductor Emberá-Español
+# Script de Produccion para Windows 11
+# Traductor Embera-Espanol
 # ============================================
 
 Write-Host "============================================" -ForegroundColor Cyan
-Write-Host "  Iniciando Servidor de Producción" -ForegroundColor Cyan
+Write-Host "  Iniciando Servidor de Produccion" -ForegroundColor Cyan
 Write-Host "============================================" -ForegroundColor Cyan
 Write-Host ""
 
 # Verificar que .env existe
 if (-not (Test-Path ".env")) {
-    Write-Host "❌ ERROR: El archivo .env no existe" -ForegroundColor Red
+    Write-Host "ERROR: El archivo .env no existe" -ForegroundColor Red
     Write-Host ""
-    Write-Host "Ejecuta primero el script de configuración:" -ForegroundColor Yellow
+    Write-Host "Ejecuta primero el script de configuracion:" -ForegroundColor Yellow
     Write-Host "   .\scripts\windows\setup.ps1" -ForegroundColor Cyan
     Write-Host ""
     exit 1
@@ -20,7 +20,7 @@ if (-not (Test-Path ".env")) {
 
 # Verificar que dist existe
 if (-not (Test-Path "dist")) {
-    Write-Host "❌ ERROR: El proyecto no ha sido compilado" -ForegroundColor Red
+    Write-Host "ERROR: El proyecto no ha sido compilado" -ForegroundColor Red
     Write-Host ""
     Write-Host "Ejecuta primero:" -ForegroundColor Yellow
     Write-Host "   npm run build" -ForegroundColor Cyan
@@ -29,7 +29,7 @@ if (-not (Test-Path "dist")) {
 }
 
 # Iniciar servidor con cross-env
-Write-Host "🚀 Iniciando servidor en modo producción..." -ForegroundColor Yellow
+Write-Host "Iniciando servidor en modo produccion..." -ForegroundColor Yellow
 Write-Host ""
 Write-Host "   Puerto: 3000" -ForegroundColor Cyan
 Write-Host "   URL: http://localhost:3000" -ForegroundColor Cyan

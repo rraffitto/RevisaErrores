@@ -1,0 +1,40 @@
+
+═══════════════════════════════════════════════════════════════
+  CORRECCION APLICADA - SIGUE ESTOS PASOS
+═══════════════════════════════════════════════════════════════
+
+PROBLEMA RESUELTO:
+  Los scripts tenian caracteres especiales (ñ y tildes) que
+  causaban errores de sintaxis en PowerShell de Windows.
+
+AHORA ESTA CORREGIDO:
+  ✓ Todos los scripts reescritos sin caracteres especiales
+  ✓ .env.windows actualizado: TU_CONTRASENA (sin ñ)
+
+═══════════════════════════════════════════════════════════════
+  EJECUTA ESTOS COMANDOS EN POWERSHELL:
+═══════════════════════════════════════════════════════════════
+
+# 1. Configurar proyecto (te pedira tu contrasena de PostgreSQL)
+.\scripts\windows\setup.ps1
+
+# 2. Iniciar servidor
+.\scripts\windows\dev.ps1
+
+# 3. Abrir navegador
+# http://localhost:3000
+
+═══════════════════════════════════════════════════════════════
+  ALTERNATIVA MANUAL (si los scripts fallan):
+═══════════════════════════════════════════════════════════════
+
+# Configurar manualmente
+copy .env.windows .env
+notepad .env
+# (Reemplaza TU_CONTRASENA con tu contrasena de PostgreSQL)
+
+# Iniciar servidor manualmente
+npx cross-env NODE_ENV=development tsx server/index.ts
+
+═══════════════════════════════════════════════════════════════
+
