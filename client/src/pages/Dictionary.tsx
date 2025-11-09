@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import PageHeader from "@/components/PageHeader";
@@ -25,25 +25,6 @@ export default function Dictionary() {
     );
   });
 
-  // Agrupar palabras por letra
-  const groupedWords = useMemo(() => {
-    const sorted = [...filteredWords].sort((a, b) => 
-      a.espanol.toLowerCase().localeCompare(b.espanol.toLowerCase(), 'es')
-    );
-
-    const groups: Record<string, Diccionario[]> = {};
-    
-    sorted.forEach((word) => {
-      const firstLetter = word.espanol.charAt(0).toUpperCase();
-      if (!groups[firstLetter]) {
-        groups[firstLetter] = [];
-      }
-      groups[firstLetter].push(word);
-    });
-
-    return groups;
-  }, [filteredWords]);
-
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -69,7 +50,7 @@ export default function Dictionary() {
             </div>
 
             {/* Results */}
-            <div className="max-w-7xl mx-auto">
+            <div className="max-w-5xl mx-auto">
               {isLoading ? (
                 <div className="flex items-center justify-center py-12">
                   <Loader2 className="h-8 w-8 animate-spin text-primary" />
@@ -85,35 +66,20 @@ export default function Dictionary() {
                   </CardContent>
                 </Card>
               ) : (
-                <div className="space-y-8">
-                  {Object.keys(groupedWords).sort().map((letter) => (
-                    <div key={letter} data-testid={`letter-group-${letter}`}>
-                      {/* Separador de Letra */}
-                      <div className="flex items-center gap-4 mb-4">
-                        <div className="flex items-center justify-center w-12 h-12 rounded-md bg-primary text-primary-foreground font-outfit font-bold text-2xl">
-                          {letter}
-                        </div>
-                        <div className="flex-1 h-px bg-border"></div>
-                      </div>
-                      
-                      {/* Grid de palabras */}
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                        {groupedWords[letter].map((word) => (
-                          <Card key={word.id} className="hover-elevate transition-all" data-testid={`word-card-${word.id}`}>
-                            <CardHeader className="pb-3">
-                              <CardTitle className="text-xl text-primary">
-                                {word.embera}
-                              </CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                              <p className="text-lg font-medium text-foreground">
-                                {word.espanol}
-                              </p>
-                            </CardContent>
-                          </Card>
-                        ))}
-                      </div>
-                    </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {filteredWords.map((word) => (
+                    <Card key={word.id} className="hover-elevate transition-all" data-testid={`word-card-${word.id}`}>
+                      <CardHeader className="pb-3">
+                        <CardTitle className="text-xl text-primary">
+                          {word.embera}
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-lg font-medium text-foreground">
+                          {word.espanol}
+                        </p>
+                      </CardContent>
+                    </Card>
                   ))}
                 </div>
               )}

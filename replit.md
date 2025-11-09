@@ -1,191 +1,233 @@
-# Emberá-Español Translator Platform
+# Traductor Emberá-Español
 
-## Overview
+## Descripción del Proyecto
 
-A web-based cultural preservation platform combining a bidirectional Emberá-Spanish translator with educational content about the Emberá indigenous community of Colombia. The application features a dictionary of 264 unique words from the Emberá Dobida dialect and rich multimedia content showcasing Emberá culture, history, and traditions.
+Plataforma web dedicada a preservar y promover el idioma y la cultura del pueblo Emberá de Colombia. Combina un traductor bidireccional Emberá-Español con contenido educativo y cultural sobre la comunidad Emberá.
 
-**Primary Purpose**: Preserve and promote the Emberá language and cultural heritage through accessible translation tools and educational resources.
+## Características Principales
 
-**Target Platform**: Web application optimized for Windows 11 deployment with Node.js and PostgreSQL.
+### 🔄 Traductor Bidireccional
+- Traducción palabra por palabra entre español y emberá
+- Interfaz intuitiva con selectores de idioma
+- Estados de carga y manejo de errores con mensajes bilingües
+- Botón de intercambio rápido de idiomas
+- Función de copiado de traducciones
 
-## User Preferences
+### 📚 Diccionario Completo
+- 81 palabras iniciales en el diccionario
+- Búsqueda en tiempo real por español o emberá
+- Navegación alfabética
+- Interfaz responsive con tarjetas visuales
 
-Preferred communication style: Simple, everyday language.
+### 🌍 Contenido Cultural
+- **PageHeader Unificado**: Imagen de niños Emberá en todas las páginas con overlay oscuro
+- **Sobre la Comunidad**: Estadísticas de población, regiones y hablantes
+- **Mapa del Resguardo**: Google Maps embed del Resguardo Alto Río Bojayá
+- **Historia y Cultura**: Timeline histórico y aspectos culturales (artesanías, música, ceremonias)
+- **El Idioma Emberá**: Características lingüísticas y frases comunes
+- **Videos Culturales**: 2 videos de YouTube sobre danzas y cultura Emberá
+- **Calendario de Festivos**: Google Calendar de festivos en Colombia
+- **Galería Cultural**: Colección de imágenes con lightbox modal
 
-## System Architecture
+## Tecnologías Utilizadas
 
-### Frontend Architecture
+### Frontend
+- React + TypeScript
+- Wouter para enrutamiento
+- TanStack Query para gestión de estado
+- Tailwind CSS para estilos
+- Shadcn UI para componentes
+- Vite como build tool
 
-**Framework Stack**:
-- **React 18** with **TypeScript** for type-safe component development
-- **Vite** as the build tool and development server
-- **Wouter** for lightweight client-side routing (3 main routes: Home, Community, Dictionary)
-- **TanStack Query** for server state management and API data fetching
+### Backend
+- Express.js
+- PostgreSQL con Drizzle ORM
+- Zod para validación
+- API REST
 
-**UI Component Strategy**:
-- **Shadcn UI** component library built on Radix UI primitives
-- **Tailwind CSS** for utility-first styling with custom design tokens
-- **Design System**: Hybrid approach combining Material Design principles (translator interface) with culturally-rich visual storytelling (community sections)
+### Diseño
+- **Fuentes**: Inter (interfaz), Outfit (títulos), Crimson Pro (contenido cultural)
+- **Colores**: Paleta cultural Emberá con tonos terracotta/naranja (HSL 28 80% 52%)
+- **Responsive**: Mobile-first design
+- **Imágenes**: 10 imágenes culturales generadas con IA
 
-**Typography System**:
-- Primary: Inter (interface/body text)
-- Headings: Outfit (section titles)
-- Accent: Crimson Pro (cultural content)
+## Estructura del Proyecto
 
-**Key Frontend Components**:
-- `Translator`: Bidirectional translation interface with language swap, copy functionality, and loading states
-- `PageHeader`: Unified header component with Emberá children imagery and dark overlay
-- `Dictionary`: Searchable word list with alphabetical grouping
-- `Gallery`: Masonry grid layout with lightbox modal for 11 cultural photographs
-- `AboutCommunity`, `HistoryCulture`, `LanguageSection`: Educational content sections
-- `ResguardoMap`, `CulturalVideos`, `FestivosCalendar`: Embedded multimedia content (Google Maps, YouTube, Google Calendar)
+```
+├── client/
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── Header.tsx              # Navegación principal
+│   │   │   ├── Footer.tsx              # Pie de página
+│   │   │   ├── PageHeader.tsx          # Header de página con imagen (niños Emberá)
+│   │   │   ├── Translator.tsx          # Componente traductor
+│   │   │   ├── AboutCommunity.tsx      # Info comunidad
+│   │   │   ├── ResguardoMap.tsx        # Mapa Google Maps del resguardo
+│   │   │   ├── HistoryCulture.tsx      # Historia y cultura
+│   │   │   ├── LanguageSection.tsx     # Info del idioma
+│   │   │   ├── CulturalVideos.tsx      # Videos de YouTube
+│   │   │   ├── FestivosCalendar.tsx    # Calendario de festivos
+│   │   │   └── Gallery.tsx             # Galería de imágenes
+│   │   ├── pages/
+│   │   │   ├── Home.tsx                # Página principal
+│   │   │   ├── Community.tsx           # Página comunidad
+│   │   │   └── Dictionary.tsx          # Página diccionario
+│   │   └── App.tsx                     # Router principal
+│   └── index.html
+├── server/
+│   ├── db.ts                           # Conexión PostgreSQL
+│   ├── storage.ts                      # Capa de datos
+│   └── routes.ts                       # Endpoints API
+├── shared/
+│   └── schema.ts                       # Esquemas compartidos
+└── attached_assets/
+    └── generated_images/               # Imágenes culturales
+```
 
-### Backend Architecture
+## Base de Datos
 
-**Server Framework**:
-- **Express.js** REST API with TypeScript
-- Custom middleware for request logging and JSON body parsing
-- Error handling with structured JSON responses
+### Tabla: diccionario
 
-**API Endpoints**:
-- `GET /api/translate` - Word translation with query parameters (word, from, to)
-- `GET /api/dictionary` - Full dictionary retrieval
-- `GET /api/dictionary/search` - Word search by query string
+```sql
+CREATE TABLE diccionario (
+  id SERIAL PRIMARY KEY,
+  espanol TEXT NOT NULL,
+  embera TEXT NOT NULL
+);
+```
 
-**Validation Strategy**:
-- **Zod** schemas for runtime type validation on API requests
-- Ensures language codes are valid ("es-ES" or "em-EM")
-- Validates required fields and prevents same-language translation
+**Datos iniciales**: 81 pares de palabras incluyendo:
+- Saludos (hola, buenos días, gracias)
+- Familia (padre, madre, hijo, hermano)
+- Naturaleza (agua, río, montaña, árbol)
+- Colores, números, animales, etc.
 
-**Development Server**:
-- Vite middleware integration for HMR in development
-- Separate static file serving in production
-- Replit-specific plugins for error overlay and development tools
+## API Endpoints
 
-### Data Storage
+### GET /api/translate
+Traduce una palabra entre español y emberá.
 
-**Database**:
-- **PostgreSQL** as the primary relational database
-- **Drizzle ORM** for type-safe database queries and schema management
-- **@neondatabase/serverless** connection pooling for Neon PostgreSQL instances
+**Query Parameters:**
+- `word` (string): Palabra a traducir
+- `from` (string): Idioma origen ("es-ES" | "em-EM")
+- `to` (string): Idioma destino ("es-ES" | "em-EM")
 
-**Database Schema** (`shared/schema.ts`):
+**Response:**
+```json
+{
+  "translation": "palabra_traducida"
+}
+```
 
-1. **diccionario** table:
-   - `id`: Serial primary key
-   - `espanol`: Text field (Spanish words)
-   - `embera`: Text field (Emberá words)
-   - Contains 264 unique word pairs from Emberá Dobida dialect
+**Errores:**
+- 400: Parámetros inválidos
+- 404: Palabra no encontrada
+- 500: Error del servidor
 
-2. **users** table (for future authentication):
-   - `id`: UUID primary key
-   - `username`: Unique text field
-   - `password`: Text field for hashed passwords
+### GET /api/dictionary
+Obtiene todas las palabras del diccionario.
 
-**Query Patterns**:
-- Case-insensitive search using `ilike` for flexible word matching
-- Alphabetical sorting for dictionary display
-- Bidirectional translation logic (Spanish→Emberá and Emberá→Spanish)
+**Response:**
+```json
+[
+  {
+    "id": 1,
+    "espanol": "agua",
+    "embera": "juí"
+  },
+  ...
+]
+```
 
-**Data Migration**:
-- Custom import scripts in `scripts/` directory for Excel-based dictionary imports
-- Deduplication utilities to maintain data integrity
-- SQL export capabilities for database portability
+## Cómo Ejecutar el Proyecto
 
-### State Management
+El workflow "Start application" ya está configurado y ejecuta:
 
-**Client-Side State**:
-- TanStack Query handles all server state with automatic caching
-- React local state for UI interactions (language selection, search terms, modal visibility)
-- No global state management needed due to simple data flow
+```bash
+npm run dev
+```
 
-**Query Configuration**:
-- Infinite stale time (data rarely changes)
-- No automatic refetching (controlled fetches only)
-- Error handling with toast notifications
+Esto inicia:
+- Servidor Express en puerto 5000
+- Servidor Vite para el frontend
+- Hot reload automático
 
-### Authentication & Authorization
+## Variables de Entorno
 
-**Current State**: No authentication implemented
+Las siguientes variables están configuradas automáticamente:
+- `DATABASE_URL`: URL de conexión a PostgreSQL
+- `PGHOST`, `PGPORT`, `PGUSER`, `PGPASSWORD`, `PGDATABASE`: Credenciales de la base de datos
+- `SESSION_SECRET`: Secreto para sesiones
 
-**Future Consideration**: User schema exists for potential login/registration features, but currently unused. Platform is fully public-facing.
+## Características de Diseño
 
-## External Dependencies
+### Paleta de Colores Culturales
+- **Primary**: Terracotta/Naranja (HSL 28 80% 52%) - Inspirado en artesanías Emberá
+- **Background**: Tonos neutros claros
+- **Accent**: Tonos tierra complementarios
 
-### Third-Party Services
+### Tipografía Jerárquica
+- **Display/Hero**: Outfit Bold (text-5xl a text-6xl)
+- **Encabezados**: Outfit SemiBold (text-3xl a text-4xl)
+- **Cuerpo**: Inter Regular (text-base a text-lg)
+- **Cultural**: Crimson Pro para contenido narrativo
 
-1. **Google Maps Embed API**:
-   - Displays Resguardo Alto Río Bojayá location
-   - Static iframe embed (no API key required for basic embedding)
+### Responsive Design
+- Mobile-first approach
+- Breakpoints: sm (640px), md (768px), lg (1024px), xl (1280px)
+- Navegación adaptable con menú hamburguesa en móvil
+- Grid responsive (1, 2 o 3 columnas según pantalla)
 
-2. **YouTube Embed**:
-   - Two cultural videos embedded via iframe
-   - Videos showcase Emberá dances and cultural practices
+## Testing
 
-3. **Google Calendar Embed**:
-   - Colombian holiday calendar integration
-   - Public calendar URL for festivos in Colombia
+El proyecto ha pasado todas las pruebas end-to-end que verifican:
+- ✅ Traducción Español → Emberá
+- ✅ Traducción Emberá → Español
+- ✅ Intercambio de idiomas
+- ✅ Manejo de errores para palabras no encontradas
+- ✅ Búsqueda en el diccionario
+- ✅ Navegación entre páginas
+- ✅ Carga de contenido cultural
 
-### Cloud Services
+## Estado del Proyecto
 
-**Neon PostgreSQL**:
-- Serverless PostgreSQL hosting via `@neondatabase/serverless`
-- WebSocket-based connection pooling
-- Environment variable: `DATABASE_URL` for connection string
+**Versión**: MVP 1.0  
+**Estado**: ✅ Completo y Funcional
 
-### Package Dependencies
+### Características Implementadas
+- [x] Traductor bidireccional funcional
+- [x] Base de datos PostgreSQL con 81 palabras
+- [x] PageHeader unificado con imagen cultural en todas las páginas
+- [x] Páginas de información cultural completas
+- [x] Mapa interactivo del Resguardo Alto Río Bojayá (Google Maps)
+- [x] Videos culturales de YouTube embebidos (Danza del Pato, Cultura Emberá)
+- [x] Calendario de festivos en Colombia (Google Calendar)
+- [x] Galería de imágenes con lightbox
+- [x] Búsqueda en diccionario
+- [x] Diseño responsive
+- [x] Estados de carga y manejo de errores
+- [x] Navegación completa
 
-**Core Runtime**:
-- Node.js 18+ required
-- PostgreSQL 14+ for local development
+### Próximas Mejoras Posibles
+- [ ] Pronunciación de palabras con audio
+- [ ] Sistema de contribución comunitaria
+- [ ] Frases completas y expresiones idiomáticas
+- [ ] Modo offline con Service Workers
+- [ ] Estadísticas de uso
+- [ ] Más contenido cultural multimedia
 
-**Major Dependencies**:
-- `express` ^5.1.0 - Web server framework
-- `react` ^18.x - UI library
-- `drizzle-orm` ^0.39.1 - Database ORM
-- `@tanstack/react-query` ^5.60.5 - Data fetching
-- `wouter` - Routing library
-- `zod` - Schema validation
-- `tailwindcss` - CSS framework
-- `vite` - Build tool
+## Contexto Cultural
 
-**Radix UI Components** (20+ components):
-- Headless UI primitives for accessibility
-- Dialog, Dropdown, Select, Accordion, Toast, etc.
+### El Pueblo Emberá
+Los Emberá son una comunidad indígena que habita principalmente en las selvas tropicales del Pacífico colombiano, con aproximadamente 200,000 personas en Colombia y Panamá, de las cuales alrededor de 80,000 son hablantes nativos activos del idioma.
 
-### Asset Management
+### Preservación Lingüística
+Este proyecto contribuye a la revitalización y preservación del idioma emberá, proporcionando una herramienta digital moderna para el aprendizaje y documentación de la lengua ancestral.
 
-**Static Assets** (`attached_assets/` directory):
-- 11 cultural photographs (PNG, JPG, JPEG formats)
-- Generated AI images for hero sections and cultural content
-- All images optimized for web delivery
+## Créditos
 
-**Image Strategy**:
-- Images imported via Vite's asset handling
-- Automatic optimization and bundling
-- TypeScript path alias `@assets` for clean imports
+Proyecto desarrollado con respeto y honor hacia la cultura y lengua del pueblo Emberá de Colombia.
 
-### Development Tools
+---
 
-**Replit Integration**:
-- Custom Vite plugins for error overlays and dev banners
-- Cartographer plugin for code navigation
-- Runtime error modal for debugging
-
-**Build Process**:
-- Frontend: Vite builds to `dist/public`
-- Backend: esbuild bundles server to `dist/index.js`
-- TypeScript compilation via `tsx` in development
-- Production uses compiled JavaScript bundle
-
-### Environment Configuration
-
-**Required Environment Variables**:
-- `DATABASE_URL` - PostgreSQL connection string
-- `NODE_ENV` - "development" or "production"
-- `PORT` - Server port (defaults to 3000)
-
-**Windows-Specific Setup**:
-- `.env.windows` template provided for local development
-- PowerShell scripts documented in `COMANDOS_WINDOWS.md`
-- PostgreSQL installation via Windows installer
+**Última actualización**: Noviembre 2024

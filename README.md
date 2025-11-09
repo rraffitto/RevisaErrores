@@ -159,21 +159,39 @@ Obtiene todas las palabras del diccionario.
 
 ## Cómo Ejecutar el Proyecto en Windows 11
 
-### Instalación en Windows 11 (Puerto 3000)
+### ⚡ Instalación Rápida con Scripts Automatizados
 
-Para ejecutar el proyecto en Windows 11 con Node.js y PostgreSQL:
+```powershell
+# 1. Crear base de datos
+psql -U postgres -c "CREATE DATABASE traductor_embera;"
 
-1. **Instalar Node.js** (v18+): https://nodejs.org/
-2. **Instalar PostgreSQL** (v14+): https://www.postgresql.org/download/windows/
-3. **Crear base de datos**: `psql -U postgres -c "CREATE DATABASE traductor_embera;"`
-4. **Ejecutar script SQL**: `psql -U postgres -d traductor_embera -f database_setup.sql`
-5. **Crear archivo `.env`** con las credenciales de PostgreSQL
-6. **Instalar dependencias**: `npm install`
-7. **Iniciar servidor**: `npm run dev`
-8. **Abrir navegador**: `http://localhost:3000`
+# 2. Cargar datos
+psql -U postgres -d traductor_embera -f database_setup.sql
 
-📖 **Guía completa de instalación**: Ver `INSTALACION_WINDOWS.md`  
-📖 **Referencia de comandos PowerShell**: Ver `COMANDOS_WINDOWS.md`
+# 3. Instalar dependencias
+npm install
+
+# 4. Configurar proyecto (automático)
+.\scripts\windows\setup.ps1
+
+# 5. Iniciar servidor
+.\scripts\windows\dev.ps1
+
+# 6. Abrir navegador: http://localhost:3000
+```
+
+### 📋 Scripts PowerShell Disponibles
+
+- `.\scripts\windows\setup.ps1` - Configuración automática del proyecto
+- `.\scripts\windows\dev.ps1` - Iniciar servidor de desarrollo
+- `.\scripts\windows\db-push.ps1` - Sincronizar base de datos
+- `.\scripts\windows\start.ps1` - Iniciar en modo producción
+
+### 📖 Documentación Completa
+
+- **`LEEME.md`** - Inicio rápido en español
+- **`INSTALACION_WINDOWS.md`** - Guía completa de instalación paso a paso  
+- **`COMANDOS_WINDOWS.md`** - Referencia de comandos PowerShell
 
 ## Variables de Entorno para Windows 11
 

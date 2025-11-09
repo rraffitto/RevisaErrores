@@ -124,6 +124,49 @@ cd traductor-embera
 
 O descarga el proyecto como ZIP y descomprímelo.
 
+---
+
+## ⚡ Método Rápido: Scripts Automatizados de PowerShell
+
+### 🚀 Configuración Automática (Recomendado)
+
+El proyecto incluye scripts PowerShell que automatizan toda la configuración:
+
+```powershell
+# 1. Instalar dependencias
+npm install
+
+# 2. Habilitar ejecución de scripts (solo una vez)
+Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+
+# 3. Ejecutar script de configuración automática
+.\scripts\windows\setup.ps1
+```
+
+**Nota sobre Seguridad**: Si PowerShell pregunta sobre la política de ejecución, presiona `S` para permitir scripts locales. Esto solo afecta a tu usuario y es seguro para scripts locales.
+
+El script `setup.ps1` hará automáticamente:
+- ✅ Verificar que Node.js y PostgreSQL estén instalados
+- ✅ Crear el archivo `.env` desde `.env.windows`
+- ✅ Solicitar tu contraseña de PostgreSQL
+- ✅ Generar un `SESSION_SECRET` seguro
+- ✅ Validar que todo esté configurado correctamente
+
+### 🎯 Iniciar el Servidor
+
+Después de configurar, inicia el servidor con:
+
+```powershell
+# Iniciar en modo desarrollo
+.\scripts\windows\dev.ps1
+```
+
+Abre tu navegador en: **http://localhost:3000**
+
+---
+
+## 🔧 Método Manual (Alternativo)
+
 ### Instalar Dependencias
 
 Abre **PowerShell** en la carpeta del proyecto:
@@ -203,11 +246,32 @@ http://localhost:3000
 
 ## 🛠️ Comandos Útiles
 
-### Scripts del Proyecto
+### Scripts PowerShell para Windows
+
+```powershell
+# Configuración inicial
+.\scripts\windows\setup.ps1
+
+# Iniciar servidor de desarrollo
+.\scripts\windows\dev.ps1
+
+# Sincronizar esquema de base de datos
+.\scripts\windows\db-push.ps1
+
+# Iniciar en producción (requiere npm run build)
+.\scripts\windows\start.ps1
+```
+
+### Scripts del Proyecto (Alternativa con npx)
+
+Si los scripts PowerShell no funcionan, usa estos comandos:
 
 ```powershell
 # Iniciar el servidor de desarrollo
-npm run dev
+npx cross-env NODE_ENV=development tsx server/index.ts
+
+# Iniciar en producción
+npx cross-env NODE_ENV=production node dist/index.js
 
 # Importar palabras desde Excel
 npx tsx scripts/import_words.ts
@@ -219,7 +283,7 @@ npx tsx scripts/deduplicate_dictionary.ts
 npx tsx scripts/export_to_sql.ts
 
 # Sincronizar esquema de base de datos
-npm run db:push
+npx drizzle-kit push
 ```
 
 ### PostgreSQL en Windows

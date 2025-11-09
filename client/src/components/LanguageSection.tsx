@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BookOpen, Volume2, MessageCircle } from "lucide-react";
-import languageImage from "@assets/Nepono Werara_1762692764930.jpg";
+import languageImage from "@assets/generated_images/Emberá_language_teaching_scene_15d44657.png";
 
 export function LanguageSection() {
   const features = [
@@ -46,7 +46,7 @@ export function LanguageSection() {
           <div className="order-2 md:order-1">
             <img
               src={languageImage}
-              alt="Grupo de mujeres Emberá"
+              alt="Enseñanza del idioma Emberá"
               className="w-full rounded-xl shadow-lg"
               data-testid="img-language-teaching"
             />

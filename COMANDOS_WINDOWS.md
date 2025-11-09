@@ -4,12 +4,46 @@ Comandos más utilizados para ejecutar y mantener el proyecto en Windows.
 
 ---
 
-## 🚀 Comandos Básicos del Proyecto
+## ⚡ Scripts PowerShell (Recomendado)
+
+### Configuración Inicial
+
+```powershell
+# Configuración automática del proyecto
+.\scripts\windows\setup.ps1
+```
+
+Este script:
+- ✅ Verifica Node.js y PostgreSQL
+- ✅ Crea el archivo `.env`
+- ✅ Configura la contraseña de PostgreSQL
+- ✅ Genera un `SESSION_SECRET` seguro
+
+### Ejecutar el Proyecto
+
+```powershell
+# Iniciar servidor de desarrollo
+.\scripts\windows\dev.ps1
+
+# Sincronizar base de datos
+.\scripts\windows\db-push.ps1
+
+# Iniciar en producción
+.\scripts\windows\start.ps1
+```
+
+---
+
+## 🚀 Comandos NPX (Alternativa Manual)
 
 ### Iniciar el Servidor
 
 ```powershell
-npm run dev
+# Desarrollo
+npx cross-env NODE_ENV=development tsx server/index.ts
+
+# Producción
+npx cross-env NODE_ENV=production node dist/index.js
 ```
 
 ### Instalar Dependencias

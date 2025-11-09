@@ -16,20 +16,30 @@ psql -U postgres -c "CREATE DATABASE traductor_embera;"
 # 2. Cargar datos (264 palabras)
 psql -U postgres -d traductor_embera -f database_setup.sql
 
-# 3. Configurar variables de entorno
-copy .env.windows .env
-notepad .env
-# (Editar con tu contraseña de PostgreSQL)
-
-# 4. Instalar dependencias
+# 3. Instalar dependencias
 npm install
 
-# 5. Iniciar servidor
-npm run dev
+# 4. Habilitar scripts PowerShell (solo la primera vez)
+Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
 
-# 6. Abrir navegador
+# 5. Configurar proyecto (automático)
+.\scripts\windows\setup.ps1
+
+# 6. Iniciar servidor
+.\scripts\windows\dev.ps1
+
+# 7. Abrir navegador
 # http://localhost:3000
 ```
+
+### 🆕 Scripts PowerShell Automatizados
+
+El proyecto ahora incluye scripts que simplifican la configuración:
+
+- `.\scripts\windows\setup.ps1` - Configuración automática
+- `.\scripts\windows\dev.ps1` - Iniciar desarrollo
+- `.\scripts\windows\db-push.ps1` - Sincronizar base de datos
+- `.\scripts\windows\start.ps1` - Iniciar producción
 
 ---
 
@@ -63,11 +73,28 @@ npm run dev
 
 ## 🆘 Problemas Comunes
 
+### "NODE_ENV no se reconoce" en PowerShell
+✅ **Solución**: Usa los scripts PowerShell:
+```powershell
+.\scripts\windows\dev.ps1
+```
+
+O manualmente con `npx cross-env`:
+```powershell
+npx cross-env NODE_ENV=development tsx server/index.ts
+```
+
 ### PostgreSQL no se reconoce
 Agregar PostgreSQL al PATH de Windows:
 1. Busca "Variables de entorno"
 2. Editar `Path` → Nuevo
 3. Agregar: `C:\Program Files\PostgreSQL\16\bin`
+
+### Error "DATABASE_URL, ensure the database is provisioned"
+El archivo `.env` no está configurado. Ejecuta:
+```powershell
+.\scripts\windows\setup.ps1
+```
 
 ### Error de conexión a la base de datos
 Verificar que PostgreSQL esté corriendo:
