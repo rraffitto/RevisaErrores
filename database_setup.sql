@@ -8,6 +8,9 @@
 -- Encoding: UTF-8
 -- ============================================
 
+-- Habilitar extensión para generar UUIDs (necesario para tabla users)
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
 -- Crear tabla del diccionario
 CREATE TABLE IF NOT EXISTS diccionario (
     id SERIAL PRIMARY KEY,

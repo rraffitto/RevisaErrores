@@ -1,0 +1,160 @@
+╔══════════════════════════════════════════════════════════════════╗
+║                                                                  ║
+║         CONFIGURACIÓN RÁPIDA PARA LOCALHOST - PUERTO 3000        ║
+║              Traductor Emberá-Español                            ║
+║                                                                  ║
+╚══════════════════════════════════════════════════════════════════╝
+
+═══════════════════════════════════════════════════════════════════
+📋 REQUISITOS PREVIOS
+═══════════════════════════════════════════════════════════════════
+
+  ✓ Node.js 18 o superior
+  ✓ PostgreSQL 14 o superior
+  ✓ npm (incluido con Node.js)
+
+═══════════════════════════════════════════════════════════════════
+🗄️ PASO 1: CONFIGURAR POSTGRESQL
+═══════════════════════════════════════════════════════════════════
+
+1. Abrir terminal de PostgreSQL:
+   
+   Mac/Linux:
+   $ sudo -u postgres psql
+
+   Windows:
+   $ psql -U postgres
+
+2. Ejecutar estos comandos:
+
+   CREATE DATABASE embera_traductor;
+   CREATE USER embera_user WITH PASSWORD 'embera_password';
+   GRANT ALL PRIVILEGES ON DATABASE embera_traductor TO embera_user;
+   \q
+
+3. Cargar los datos (81 palabras):
+   
+   $ psql -U embera_user -d embera_traductor -f database_setup.sql
+
+   Contraseña: embera_password
+
+═══════════════════════════════════════════════════════════════════
+⚙️ PASO 2: CONFIGURAR LA APLICACIÓN
+═══════════════════════════════════════════════════════════════════
+
+1. Instalar dependencias:
+   
+   $ npm install
+
+2. Crear archivo de configuración:
+   
+   $ cp .env.localhost .env
+
+   Esto creará un archivo .env con:
+   - Puerto: 3000
+   - Base de datos: PostgreSQL en localhost
+   - SESSION_SECRET: ya configurado
+
+3. ¡Listo! El archivo .env ya tiene todo configurado.
+
+═══════════════════════════════════════════════════════════════════
+🚀 PASO 3: INICIAR LA APLICACIÓN
+═══════════════════════════════════════════════════════════════════
+
+Modo Desarrollo (con auto-reload):
+
+  $ npm run dev
+
+Modo Producción:
+
+  $ npm run build
+  $ npm start
+
+═══════════════════════════════════════════════════════════════════
+🌐 ACCEDER A LA APLICACIÓN
+═══════════════════════════════════════════════════════════════════
+
+  Abre tu navegador en:
+  
+  http://localhost:3000
+
+═══════════════════════════════════════════════════════════════════
+✅ VERIFICAR QUE TODO FUNCIONA
+═══════════════════════════════════════════════════════════════════
+
+1. En la página principal:
+   - Escribe "agua" en español
+   - Traduce → debe mostrar "juí"
+
+2. Ve a Diccionario:
+   - Debe mostrar 81 palabras
+   - Busca "familia" → debe aparecer "purúm"
+
+3. Ve a Comunidad:
+   - Debe mostrar el mapa del resguardo
+   - Videos de YouTube
+   - Calendario de festivos
+   - Galería con 11 fotos auténticas
+
+═══════════════════════════════════════════════════════════════════
+🔧 SOLUCIÓN DE PROBLEMAS
+═══════════════════════════════════════════════════════════════════
+
+❌ Error: "Cannot connect to database"
+
+   Verifica que PostgreSQL esté corriendo:
+   
+   Mac:
+   $ brew services list | grep postgresql
+   
+   Linux:
+   $ sudo systemctl status postgresql
+   
+   Iniciar PostgreSQL:
+   $ brew services start postgresql@14  (Mac)
+   $ sudo systemctl start postgresql    (Linux)
+
+❌ Error: "Port 3000 already in use"
+
+   Cambia el puerto en .env:
+   PORT=3001
+
+❌ Error: "Session secret required"
+
+   Verifica que el archivo .env existe y contiene:
+   SESSION_SECRET=Y8zK9mN2pQ5wR7tX3vB6nM8jH4gF1dS0aZ9cX7vB5nM2kJ4hG6fD8sA0
+
+═══════════════════════════════════════════════════════════════════
+📁 ARCHIVOS DE CONFIGURACIÓN
+═══════════════════════════════════════════════════════════════════
+
+  .env.localhost        → Configuración lista para copiar
+  .env.example          → Plantilla con documentación
+  database_setup.sql    → Script de base de datos (81 palabras)
+  LOCALHOST_SETUP.md    → Guía detallada paso a paso
+
+═══════════════════════════════════════════════════════════════════
+🎯 RESUMEN RÁPIDO (3 COMANDOS)
+═══════════════════════════════════════════════════════════════════
+
+  1. $ psql -U embera_user -d embera_traductor -f database_setup.sql
+  2. $ cp .env.localhost .env && npm install
+  3. $ npm run dev
+
+  Luego abre: http://localhost:3000
+
+═══════════════════════════════════════════════════════════════════
+📞 MÁS AYUDA
+═══════════════════════════════════════════════════════════════════
+
+  Para instrucciones detalladas, consulta:
+  LOCALHOST_SETUP.md
+
+  Para instalación en servidor, consulta:
+  INSTRUCCIONES_INSTALACION.md
+
+═══════════════════════════════════════════════════════════════════
+
+¡Listo para preservar el idioma y la cultura Emberá! 🌿
+
+═══════════════════════════════════════════════════════════════════

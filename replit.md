@@ -152,6 +152,8 @@ Obtiene todas las palabras del diccionario.
 
 ## Cómo Ejecutar el Proyecto
 
+### En Replit (Desarrollo)
+
 El workflow "Start application" ya está configurado y ejecuta:
 
 ```bash
@@ -163,12 +165,40 @@ Esto inicia:
 - Servidor Vite para el frontend
 - Hot reload automático
 
+### En Localhost (Puerto 3000)
+
+Para ejecutar en tu computadora local:
+
+1. **Configurar PostgreSQL** (ver `database_setup.sql`)
+2. **Copiar configuración**: `cp .env.localhost .env`
+3. **Instalar dependencias**: `npm install`
+4. **Iniciar servidor**: `npm run dev`
+5. **Abrir navegador**: `http://localhost:3000`
+
+📖 **Guía completa**: Ver `LOCALHOST_SETUP.md`
+
 ## Variables de Entorno
+
+### En Replit (Automáticas)
 
 Las siguientes variables están configuradas automáticamente:
 - `DATABASE_URL`: URL de conexión a PostgreSQL
 - `PGHOST`, `PGPORT`, `PGUSER`, `PGPASSWORD`, `PGDATABASE`: Credenciales de la base de datos
 - `SESSION_SECRET`: Secreto para sesiones
+
+### Para Localhost
+
+Archivo `.env.localhost` incluye:
+- `PORT=3000`: Puerto del servidor
+- `DATABASE_URL`: Conexión a PostgreSQL local
+- `SESSION_SECRET`: Ya generado y seguro
+- `NODE_ENV=development`: Modo desarrollo
+
+**Archivos de configuración:**
+- `.env.localhost` → Listo para copiar a `.env`
+- `.env.example` → Plantilla con documentación
+- `LOCALHOST_SETUP.md` → Guía paso a paso
+- `CONFIGURACION_LOCALHOST.txt` → Referencia rápida
 
 ## Características de Diseño
 
@@ -218,6 +248,9 @@ El proyecto ha pasado todas las pruebas end-to-end que verifican:
 - [x] Diseño responsive
 - [x] Estados de carga y manejo de errores
 - [x] Navegación completa
+- [x] Configuración lista para localhost (puerto 3000)
+- [x] Scripts de instalación y deployment
+- [x] Documentación completa de instalación
 
 ### Próximas Mejoras Posibles
 - [ ] Pronunciación de palabras con audio
