@@ -20,7 +20,7 @@ Plataforma web dedicada a preservar y promover el idioma y la cultura del pueblo
 - Interfaz responsive con tarjetas visuales
 
 ### 🌍 Contenido Cultural
-- **Sección Hero**: Imagen cultural con llamado a la acción
+- **PageHeader Unificado**: Imagen de niños Emberá en todas las páginas con overlay oscuro
 - **Sobre la Comunidad**: Estadísticas de población, regiones y hablantes
 - **Mapa del Resguardo**: Google Maps embed del Resguardo Alto Río Bojayá
 - **Historia y Cultura**: Timeline histórico y aspectos culturales (artesanías, música, ceremonias)
@@ -59,7 +59,7 @@ Plataforma web dedicada a preservar y promover el idioma y la cultura del pueblo
 │   │   ├── components/
 │   │   │   ├── Header.tsx              # Navegación principal
 │   │   │   ├── Footer.tsx              # Pie de página
-│   │   │   ├── Hero.tsx                # Sección hero
+│   │   │   ├── PageHeader.tsx          # Header de página con imagen (niños Emberá)
 │   │   │   ├── Translator.tsx          # Componente traductor
 │   │   │   ├── AboutCommunity.tsx      # Info comunidad
 │   │   │   ├── ResguardoMap.tsx        # Mapa Google Maps del resguardo
@@ -197,6 +197,7 @@ El proyecto ha pasado todas las pruebas end-to-end que verifican:
 ### Características Implementadas
 - [x] Traductor bidireccional funcional
 - [x] Base de datos PostgreSQL con 81 palabras
+- [x] PageHeader unificado con imagen cultural en todas las páginas
 - [x] Páginas de información cultural completas
 - [x] Mapa interactivo del Resguardo Alto Río Bojayá (Google Maps)
 - [x] Videos culturales de YouTube embebidos (Danza del Pato, Cultura Emberá)
