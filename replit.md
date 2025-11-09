@@ -169,7 +169,7 @@ Esto inicia:
 - Servidor Vite para el frontend
 - Hot reload automático
 
-### En Localhost (Puerto 3000)
+### En Localhost - Linux/Mac (Puerto 3000)
 
 Para ejecutar en tu computadora local:
 
@@ -181,6 +181,22 @@ Para ejecutar en tu computadora local:
 
 📖 **Guía completa**: Ver `LOCALHOST_SETUP.md`
 
+### En Windows 11 (Puerto 3000)
+
+Para ejecutar en Windows 11 con Node.js y PostgreSQL:
+
+1. **Instalar Node.js** (v18+): https://nodejs.org/
+2. **Instalar PostgreSQL** (v14+): https://www.postgresql.org/download/windows/
+3. **Crear base de datos**: `psql -U postgres -c "CREATE DATABASE traductor_embera;"`
+4. **Ejecutar script SQL**: `psql -U postgres -d traductor_embera -f database_setup.sql`
+5. **Crear archivo `.env`** con las credenciales de PostgreSQL
+6. **Instalar dependencias**: `npm install`
+7. **Iniciar servidor**: `npm run dev`
+8. **Abrir navegador**: `http://localhost:3000`
+
+📖 **Guía completa para Windows**: Ver `INSTALACION_WINDOWS.md`  
+📖 **Referencia de comandos**: Ver `COMANDOS_WINDOWS.md`
+
 ## Variables de Entorno
 
 ### En Replit (Automáticas)
@@ -190,7 +206,7 @@ Las siguientes variables están configuradas automáticamente:
 - `PGHOST`, `PGPORT`, `PGUSER`, `PGPASSWORD`, `PGDATABASE`: Credenciales de la base de datos
 - `SESSION_SECRET`: Secreto para sesiones
 
-### Para Localhost
+### Para Localhost (Linux/Mac)
 
 Archivo `.env.localhost` incluye:
 - `PORT=3000`: Puerto del servidor
@@ -199,10 +215,24 @@ Archivo `.env.localhost` incluye:
 - `NODE_ENV=development`: Modo desarrollo
 
 **Archivos de configuración:**
-- `.env.localhost` → Listo para copiar a `.env`
+- `.env.localhost` → Listo para copiar a `.env` (Linux/Mac)
 - `.env.example` → Plantilla con documentación
-- `LOCALHOST_SETUP.md` → Guía paso a paso
+- `LOCALHOST_SETUP.md` → Guía paso a paso (Linux/Mac)
 - `CONFIGURACION_LOCALHOST.txt` → Referencia rápida
+
+### Para Windows 11
+
+Archivo `.env.windows` incluye:
+- `PORT=3000`: Puerto del servidor
+- `DATABASE_URL`: Conexión a PostgreSQL local
+- `PGHOST`, `PGPORT`, `PGUSER`, `PGPASSWORD`, `PGDATABASE`: Credenciales
+- `SESSION_SECRET`: Para generar uno seguro
+- `NODE_ENV=development`: Modo desarrollo
+
+**Archivos de configuración:**
+- `.env.windows` → Plantilla para copiar a `.env` (Windows)
+- `INSTALACION_WINDOWS.md` → Guía completa de instalación paso a paso
+- `COMANDOS_WINDOWS.md` → Referencia rápida de comandos PowerShell
 
 ## Características de Diseño
 
