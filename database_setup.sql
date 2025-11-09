@@ -2,7 +2,8 @@
 -- Script de Base de Datos: Traductor Emberá-Español
 -- ============================================
 -- Este script crea las tablas necesarias e inserta
--- el diccionario completo de 269 palabras Emberá-Español
+-- el diccionario completo de 264 palabras Emberá-Español
+-- (deduplicado, sin repeticiones)
 -- 
 -- Base de datos: PostgreSQL
 -- Encoding: UTF-8
@@ -29,7 +30,8 @@ CREATE TABLE IF NOT EXISTS users (
 -- TRUNCATE TABLE diccionario RESTART IDENTITY CASCADE;
 
 -- ============================================
--- Insertar palabras del diccionario (269 palabras)
+-- Insertar palabras del diccionario (264 palabras)
+-- Dialectos Emberá Dobida compilados por Anatolio Chanapicama 2025
 -- ============================================
 
 INSERT INTO diccionario (espanol, embera) VALUES
@@ -73,8 +75,8 @@ INSERT INTO diccionario (espanol, embera) VALUES
 ('caldero', 'kuguru'),
 ('caminar', 'purá'),
 ('camino', 'o'),
-('canasta', 'jamara'),
 ('canasta', 'ẽ'),
+('canasta', 'jamara'),
 ('canoa', 'purú'),
 ('canoa y champa', 'janpha'),
 ('cantar', 'imakó'),
@@ -86,7 +88,6 @@ INSERT INTO diccionario (espanol, embera) VALUES
 ('cesta', 'warrá'),
 ('chaquira', 'kᵾrrᵾjᵾma'),
 ('chochora', 'ochorro'),
-('chontaduro', 'jẽa'),
 ('chontaduro', 'jẽa'),
 ('cielo', 'trupá'),
 ('cinco', 'atubí'),
@@ -117,8 +118,8 @@ INSERT INTO diccionario (espanol, embera) VALUES
 ('enbuelto', 'beka'),
 ('enfermedad', 'dedekó'),
 ('escalera', 'tume'),
-('esconder', 'mirũi'),
 ('esconder', 'merui'),
+('esconder', 'mirũi'),
 ('ese', 'naᵾgʉ'),
 ('espacio', 'bari'),
 ('espina', 'ᵾrᵾ'),
@@ -136,7 +137,6 @@ INSERT INTO diccionario (espanol, embera) VALUES
 ('flauta', 'dedé'),
 ('flor', 'dosúara'),
 ('frito', 'jʉrʉi'),
-('frutas', 'netha'),
 ('frutas', 'nejõ'),
 ('frutas', 'netha'),
 ('fruto', 'amabá'),
@@ -148,8 +148,8 @@ INSERT INTO diccionario (espanol, embera) VALUES
 ('gracias', 'benkruá'),
 ('grande', 'bedabú'),
 ('guacamaya', 'pagara'),
-('guacuco', 'gorroma'),
 ('guacuco', 'jũphe'),
+('guacuco', 'gorroma'),
 ('guadua', 'chogoro'),
 ('guagua', 'pẽrora'),
 ('guardar', 'kũagai'),
@@ -181,7 +181,6 @@ INSERT INTO diccionario (espanol, embera) VALUES
 ('lluvia', 'kurí'),
 ('locion', 'kera'),
 ('lombris', 'mokitha'),
-('loro', 'kare'),
 ('loro', 'kare'),
 ('lulo', 'lulojõ'),
 ('luna', 'akará'),
@@ -245,8 +244,8 @@ INSERT INTO diccionario (espanol, embera) VALUES
 ('rana', 'wᵾrᵾkᵾkᵾ'),
 ('raton', 'kado'),
 ('raíz', 'aká'),
-('recoger', 'pei'),
 ('recoger', 'phei'),
+('recoger', 'pei'),
 ('remo', 'purubá'),
 ('renacuajo', 'baupa'),
 ('repirar', 'ᵾñapade'),
@@ -266,7 +265,6 @@ INSERT INTO diccionario (espanol, embera) VALUES
 ('semilla', 'ombira'),
 ('sentar', 'chumei'),
 ('serbatana', 'ugu'),
-('serbatana', 'ugu'),
 ('sigueña', 'õko'),
 ('sol', 'bedá'),
 ('solo', 'iduba'),
@@ -279,8 +277,8 @@ INSERT INTO diccionario (espanol, embera) VALUES
 ('tender', 'thonoga'),
 ('tierra', 'badá'),
 ('tigre', 'imama'),
-('tirar o tirelo', 'bathai'),
 ('tirar o tirelo', 'phathai'),
+('tirar o tirelo', 'bathai'),
 ('tortola', 'uma'),
 ('traer', 'enei'),
 ('tres', 'kemá'),
@@ -299,7 +297,6 @@ INSERT INTO diccionario (espanol, embera) VALUES
 ('yarumo', 'eporro'),
 ('yo', 'mᵾa'),
 ('yo', 'mᵾ'),
-('yo', 'mᵾ'),
 ('zorro', 'jojoma'),
 ('árbol', 'warra');
 
@@ -307,7 +304,7 @@ INSERT INTO diccionario (espanol, embera) VALUES
 -- Verificar instalación
 -- ============================================
 
--- Contar palabras insertadas (debe ser 269)
+-- Contar palabras insertadas (debe ser 264)
 SELECT COUNT(*) as total_palabras FROM diccionario;
 
 -- Mostrar algunas palabras de ejemplo

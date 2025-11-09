@@ -14,7 +14,8 @@ Plataforma web dedicada a preservar y promover el idioma y la cultura del pueblo
 - Función de copiado de traducciones
 
 ### 📚 Diccionario Completo
-- 81 palabras iniciales en el diccionario
+- **264 palabras únicas** en el diccionario (ampliado desde 81 palabras originales)
+- Incluye dialectos Emberá Dobida compilados por Anatolio Chanapicama 2025
 - Búsqueda en tiempo real por español o emberá
 - Navegación alfabética
 - Interfaz responsive con tarjetas visuales
@@ -107,11 +108,14 @@ CREATE TABLE diccionario (
 );
 ```
 
-**Datos iniciales**: 81 pares de palabras incluyendo:
-- Saludos (hola, buenos días, gracias)
-- Familia (padre, madre, hijo, hermano)
-- Naturaleza (agua, río, montaña, árbol)
-- Colores, números, animales, etc.
+**Datos**: 264 pares de palabras incluyendo:
+- Saludos (hola, buenos días, gracias, adiós)
+- Familia (padre, madre, hijo, hermano, hermana)
+- Naturaleza (agua, río, montaña, árbol, selva)
+- Animales (tigre, águila, guacamaya, tucán, rana)
+- Plantas (palma, chontaduro, platano, piña)
+- Colores, números, verbos, objetos
+- Dialectos Emberá Dobida (2025)
 
 ## API Endpoints
 
@@ -237,7 +241,7 @@ El proyecto ha pasado todas las pruebas end-to-end que verifican:
 
 ### Características Implementadas
 - [x] Traductor bidireccional funcional
-- [x] Base de datos PostgreSQL con 81 palabras
+- [x] Base de datos PostgreSQL con **264 palabras únicas** (ampliado y deduplicado desde 81 palabras iniciales)
 - [x] PageHeader unificado con imagen cultural en todas las páginas
 - [x] Páginas de información cultural completas
 - [x] Mapa interactivo del Resguardo Alto Río Bojayá (Google Maps)
