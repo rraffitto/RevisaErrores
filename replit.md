@@ -242,6 +242,10 @@ El proyecto ha pasado todas las pruebas end-to-end que verifican:
 ### Características Implementadas
 - [x] Traductor bidireccional funcional
 - [x] Base de datos PostgreSQL con **264 palabras únicas** (ampliado y deduplicado desde 81 palabras iniciales)
+- [x] Scripts de importación y deduplicación automatizados
+  - `scripts/import_words.ts` - Importa palabras desde Excel
+  - `scripts/export_to_sql.ts` - Genera SQL desde base de datos
+  - `scripts/deduplicate_dictionary.ts` - Elimina duplicados
 - [x] PageHeader unificado con imagen cultural en todas las páginas
 - [x] Páginas de información cultural completas
 - [x] Mapa interactivo del Resguardo Alto Río Bojayá (Google Maps)
