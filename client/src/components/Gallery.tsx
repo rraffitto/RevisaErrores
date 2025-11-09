@@ -4,29 +4,33 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-import image1 from "@assets/generated_images/Colorful_Emberá_beaded_jewelry_f790271e.png";
-import image2 from "@assets/generated_images/Traditional_Emberá_pottery_collection_0e6f9c0e.png";
-import image3 from "@assets/generated_images/Emberá_children_playing_outdoors_edff1153.png";
-import image4 from "@assets/generated_images/Traditional_Emberá_handicrafts_closeup_47cfad29.png";
-import image5 from "@assets/generated_images/Emberá_textile_weaving_process_9abbde10.png";
-import image6 from "@assets/generated_images/Traditional_Emberá_musical_instruments_c28f1c1c.png";
-import image7 from "@assets/generated_images/Emberá_language_teaching_scene_15d44657.png";
-import image8 from "@assets/generated_images/Emberá_traditional_ceremony_gathering_566f25da.png";
-import image9 from "@assets/generated_images/Emberá_community_in_traditional_dress_9487b4ea.png";
+import image1 from "@assets/041_1762692764925.png";
+import image2 from "@assets/098_1762692764925.png";
+import image3 from "@assets/Embera dobida_1762692764926.jpg";
+import image4 from "@assets/embera_1762692764927.jpg";
+import image5 from "@assets/foto de chano_1762692764927.jpeg";
+import image6 from "@assets/Fotografia-2-1-scaled_1762692764928.jpg";
+import image7 from "@assets/getlstd-property-photo_1762692764928.jpg";
+import image8 from "@assets/hq720_1762692764929.jpg";
+import image9 from "@assets/kipara-te_1762692764929.jpg";
+import image10 from "@assets/Nepono Werara_1762692764930.jpg";
+import image11 from "@assets/Tambo_1762692764930.jpg";
 
 export function Gallery() {
   const [selectedImage, setSelectedImage] = useState<{ src: string; alt: string; category: string } | null>(null);
 
   const galleryImages = [
-    { src: image1, alt: "Joyería de chaquiras Emberá", category: "Artesanía" },
-    { src: image2, alt: "Cerámica tradicional Emberá", category: "Artesanía" },
-    { src: image3, alt: "Niños Emberá jugando", category: "Comunidad" },
-    { src: image4, alt: "Artesanías tradicionales", category: "Artesanía" },
-    { src: image5, alt: "Proceso de tejido", category: "Artesanía" },
-    { src: image6, alt: "Instrumentos musicales", category: "Música" },
-    { src: image7, alt: "Enseñanza del idioma", category: "Educación" },
-    { src: image8, alt: "Ceremonia tradicional", category: "Ceremonia" },
-    { src: image9, alt: "Vestimenta tradicional", category: "Vestimenta" },
+    { src: image1, alt: "Artesana Emberá tejiendo", category: "Artesanía" },
+    { src: image2, alt: "Tambó - Casa tradicional Emberá", category: "Arquitectura" },
+    { src: image3, alt: "Mujeres Emberá Dobida con vestimenta tradicional", category: "Vestimenta" },
+    { src: image4, alt: "Danza tradicional Emberá", category: "Danza" },
+    { src: image5, alt: "Grupo Emberá con instrumentos tradicionales", category: "Música" },
+    { src: image6, alt: "Gran familia Emberá reunida", category: "Comunidad" },
+    { src: image7, alt: "Mujeres y niños con vestimenta colorida", category: "Vestimenta" },
+    { src: image8, alt: "Danza Emberá en interior", category: "Danza" },
+    { src: image9, alt: "Danza tradicional en Kipara-té", category: "Danza" },
+    { src: image10, alt: "Grupo de mujeres Emberá", category: "Comunidad" },
+    { src: image11, alt: "Tambó tradicional", category: "Arquitectura" },
   ];
 
   return (
