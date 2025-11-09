@@ -174,9 +174,7 @@ El servidor se iniciará en `http://127.0.0.1:5000`
 - ✅ Base de datos PostgreSQL con 264 palabras
 
 **Documentación Windows:**
-- `INICIO_RAPIDO_WINDOWS.md` - Guía de inicio rápido
-- `SOLUCION_FINAL_WINDOWS.md` - Solución completa al error ENOTSUP
-- `INSTALACION_WINDOWS.md` - Instalación detallada
+- `GUIA_WINDOWS.md` - Guía completa de instalación y uso
 - `COMANDOS_WINDOWS.md` - Referencia de comandos
 - `scripts/windows/` - Scripts PowerShell automatizados
 
