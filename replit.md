@@ -14,9 +14,10 @@ Plataforma web dedicada a preservar y promover el idioma y la cultura del pueblo
 - Función de copiado de traducciones
 
 ### 📚 Diccionario Completo
-- 81 palabras iniciales en el diccionario
+- 264 palabras únicas (deduplicado en despliegue Windows)
 - Búsqueda en tiempo real por español o emberá
-- Navegación alfabética
+- Navegación alfabética con separadores A-Z
+- Layout responsive de 4 columnas
 - Interfaz responsive con tarjetas visuales
 
 ### 🌍 Contenido Cultural
@@ -141,6 +142,8 @@ Obtiene todas las palabras del diccionario.
 
 ## Cómo Ejecutar el Proyecto
 
+### En Replit (Desarrollo en la Nube)
+
 El workflow "Start application" ya está configurado y ejecuta:
 
 ```bash
@@ -151,6 +154,31 @@ Esto inicia:
 - Servidor Express en puerto 5000
 - Servidor Vite para el frontend
 - Hot reload automático
+
+### En Windows 11 (Despliegue Local)
+
+Para ejecutar en Windows 11 (probado en unidad E:\):
+
+```powershell
+# Opción rápida - el script autoconfigura todo
+.\scripts\windows\dev.ps1
+```
+
+El servidor se iniciará en `http://127.0.0.1:5000`
+
+**Características del despliegue Windows:**
+- ✅ Scripts PowerShell automatizados (sin comandos Linux/Mac)
+- ✅ Autocreación de archivo `.env` con `HOST=127.0.0.1`
+- ✅ Corrección automática de configuraciones IPv6 problemáticas
+- ✅ Compatible con cualquier unidad (C:, D:, E:, etc.)
+- ✅ Base de datos PostgreSQL con 264 palabras
+
+**Documentación Windows:**
+- `INICIO_RAPIDO_WINDOWS.md` - Guía de inicio rápido
+- `SOLUCION_FINAL_WINDOWS.md` - Solución completa al error ENOTSUP
+- `INSTALACION_WINDOWS.md` - Instalación detallada
+- `COMANDOS_WINDOWS.md` - Referencia de comandos
+- `scripts/windows/` - Scripts PowerShell automatizados
 
 ## Variables de Entorno
 
