@@ -27,7 +27,7 @@ Plataforma web dedicada a preservar y promover el idioma y la cultura del pueblo
 - **El Idioma Emberá**: Características lingüísticas y frases comunes
 - **Videos Culturales**: 2 videos de YouTube sobre danzas y cultura Emberá
 - **Calendario de Festivos**: Google Calendar de festivos en Colombia
-- **Galería Cultural**: Colección de imágenes con lightbox modal
+- **Galería Cultural**: 11 fotografías auténticas de artesanías, danzas, arquitectura y comunidad con lightbox modal
 
 ## Tecnologías Utilizadas
 
@@ -49,7 +49,7 @@ Plataforma web dedicada a preservar y promover el idioma y la cultura del pueblo
 - **Fuentes**: Inter (interfaz), Outfit (títulos), Crimson Pro (contenido cultural)
 - **Colores**: Paleta cultural Emberá con tonos terracotta/naranja (HSL 28 80% 52%)
 - **Responsive**: Mobile-first design
-- **Imágenes**: 10 imágenes culturales generadas con IA
+- **Imágenes**: 11 fotografías auténticas de la cultura Emberá + 1 imagen de header (niños Emberá)
 
 ## Estructura del Proyecto
 
@@ -80,8 +80,19 @@ Plataforma web dedicada a preservar y promover el idioma y la cultura del pueblo
 │   └── routes.ts                       # Endpoints API
 ├── shared/
 │   └── schema.ts                       # Esquemas compartidos
-└── attached_assets/
-    └── generated_images/               # Imágenes culturales
+└── attached_assets/                    # Fotografías reales de la cultura Emberá
+    ├── 018_1762692764924.png           # Header: Niños Emberá
+    ├── 041_1762692764925.png           # Artesana tejiendo
+    ├── 098_1762692764925.png           # Tambó tradicional
+    ├── Embera dobida_1762692764926.jpg # Mujeres con vestimenta
+    ├── embera_1762692764927.jpg        # Danza tradicional
+    ├── foto de chano_1762692764927.jpeg # Grupo con instrumentos
+    ├── Fotografia-2-1-scaled_1762692764928.jpg # Familia Emberá
+    ├── getlstd-property-photo_1762692764928.jpg # Grupo colorido
+    ├── hq720_1762692764929.jpg         # Danza en interior
+    ├── kipara-te_1762692764929.jpg     # Danza en Kipara-té
+    ├── Nepono Werara_1762692764930.jpg # Grupo de mujeres
+    └── Tambo_1762692764930.jpg         # Estructura tradicional
 ```
 
 ## Base de Datos
@@ -202,7 +213,7 @@ El proyecto ha pasado todas las pruebas end-to-end que verifican:
 - [x] Mapa interactivo del Resguardo Alto Río Bojayá (Google Maps)
 - [x] Videos culturales de YouTube embebidos (Danza del Pato, Cultura Emberá)
 - [x] Calendario de festivos en Colombia (Google Calendar)
-- [x] Galería de imágenes con lightbox
+- [x] Galería con 11 fotografías auténticas de la cultura Emberá (lightbox modal)
 - [x] Búsqueda en diccionario
 - [x] Diseño responsive
 - [x] Estados de carga y manejo de errores
