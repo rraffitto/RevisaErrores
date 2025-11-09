@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import PageHeader from "@/components/PageHeader";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Search, Loader2 } from "lucide-react";
@@ -28,17 +29,12 @@ export default function Dictionary() {
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1">
+        <PageHeader 
+          title="Diccionario Emberá-Español" 
+          subtitle="Explora el vocabulario completo del idioma Emberá"
+        />
         <div className="py-12 md:py-20 bg-gradient-to-b from-primary/5 to-background">
           <div className="container mx-auto px-4 md:px-8">
-            <div className="text-center mb-8">
-              <h1 className="font-heading font-bold text-4xl md:text-5xl mb-4">
-                Diccionario Emberá-Español
-              </h1>
-              <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-                Explora el vocabulario completo del idioma Emberá
-              </p>
-            </div>
-
             {/* Search */}
             <div className="max-w-3xl mx-auto mb-8">
               <div className="relative">
