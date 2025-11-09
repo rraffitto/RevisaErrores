@@ -50,7 +50,7 @@ export default function Dictionary() {
             </div>
 
             {/* Results */}
-            <div className="max-w-5xl mx-auto">
+            <div className="max-w-7xl mx-auto">
               {isLoading ? (
                 <div className="flex items-center justify-center py-12">
                   <Loader2 className="h-8 w-8 animate-spin text-primary" />
@@ -66,7 +66,7 @@ export default function Dictionary() {
                   </CardContent>
                 </Card>
               ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                   {filteredWords.map((word) => (
                     <Card key={word.id} className="hover-elevate transition-all" data-testid={`word-card-${word.id}`}>
                       <CardHeader className="pb-3">
