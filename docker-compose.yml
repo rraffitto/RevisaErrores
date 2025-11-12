@@ -26,8 +26,8 @@ services:
     ports:
       - "5000:5000"
     healthcheck:
-      test: ["CMD-SHELL", "node -e \"const http=require('http'); http.get('http://localhost:5000/api/health', res=>{process.exit(res.statusCode===200?0:1)}).on('error', ()=> process.exit(1))\"
-      ]
+      # Use the JSON array form with separate args to avoid complex nested quoting
+      test: ["CMD", "node", "-e", "const http=require('http'); http.get('http://localhost:5000/api/health', res=>{process.exit(res.statusCode===200?0:1)}).on('error', ()=> process.exit(1))"]
       interval: 10s
       timeout: 5s
       retries: 5

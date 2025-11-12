@@ -83,12 +83,17 @@ app.use((req, res, next) => {
   }
 
   const port = parseInt(process.env.PORT || '5000', 10);
-  
-  server.listen({
-    port,
-    host,
-    reusePort: true,
-  }, () => {
+
+  // reusePort (SO_REUSEPORT) is not supported on all platforms (notably
+  // Windows). Attempting to enable it on unsupported platforms causes
+  // an ENOTSUP error when calling listen. Only set reusePort when the
+  // platform is not Windows.
+  const listenOptions: any = { port, host };
+  if (process.platform !== "win32") {
+    listenOptions.reusePort = true;
+  }
+
+  server.listen(listenOptions, () => {
     log(`serving on http://${host}:${port}`);
   });
 })();

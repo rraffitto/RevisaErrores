@@ -6,7 +6,10 @@ WORKDIR /usr/src/app
 COPY package.json package-lock.json* ./
 
 # Install all dependencies (including dev) to run the build
-RUN npm ci
+# Use --legacy-peer-deps to avoid ERESOLVE failures inside the container
+# where peer dependency resolution may be stricter than in the developer
+# environment. This accepts the existing lockfile behavior.
+RUN npm install --legacy-peer-deps
 
 # Copy project files and run the build
 COPY . .
@@ -19,7 +22,9 @@ WORKDIR /usr/src/app
 
 # Copy package files and install only production dependencies
 COPY package.json package-lock.json* ./
-RUN npm ci --only=production
+# Use --legacy-peer-deps here as well to avoid peer resolution failures
+# during container builds. We only install production deps in this stage.
+RUN npm install --production --legacy-peer-deps
 
 # Copy built artifacts from builder
 COPY --from=builder /usr/src/app/dist ./dist

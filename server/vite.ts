@@ -18,13 +18,15 @@ export async function setupVite(app: Express, server: Server) {
   // bundle for production (which would require `vite` to be installed).
   const { createServer: createViteServer } = await import("vite");
 
+  // Cast to any because some vite types are stricter in different versions
+  // and we only need a minimal config for middleware mode here.
   const vite = await createViteServer({
     // Minimal config for middleware mode. We avoid spreading the full
     // vite.config to keep the server runtime free of dev-only dependencies.
     middlewareMode: true,
     server: serverOptions,
     appType: "custom",
-  });
+  } as any);
 
   app.use(vite.middlewares);
   app.use("*", async (req, res, next) => {
