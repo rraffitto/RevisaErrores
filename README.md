@@ -180,6 +180,23 @@ npm install
 # 6. Abrir navegador: http://localhost:3000
 ```
 
+### ⚠️ Nota importante — Windows-only scripts
+
+Este proyecto se prepara y prueba para ejecución en Windows 11 / PowerShell. Los scripts en `scripts/windows/` (`dev.ps1`, `start.ps1`, `setup.ps1`) incluyen comprobaciones automáticas y asistentes interactivos para:
+
+- Verificar la versión mínima de PowerShell (recomendado 5.1+ o PowerShell 7).
+- Detectar si `node` está instalado y, si no, intentar instalarlo automáticamente con `winget` o `choco` (según esté disponible).
+- Instalar dependencias `npm` automáticamente si `node_modules` no existe.
+- Crear `.env` desde la plantilla `.env.windows` y normalizar `HOST=127.0.0.1`.
+
+Si prefieres no instalar Node en la máquina, puedes usar Docker Desktop y ejecutar:
+
+```powershell
+docker compose up --build
+```
+
+Los scripts han sido actualizados para simplificar la puesta en marcha en máquinas Windows; sigue las instrucciones interactivas que muestren los scripts cuando los ejecutes.
+
 ### 📋 Scripts PowerShell Disponibles
 
 - `.\scripts\windows\setup.ps1` - Configuración automática del proyecto
