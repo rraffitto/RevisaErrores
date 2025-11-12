@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:15
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: traductor_embera
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./database_setup.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports:
+      - "5432:5432"
+
+  app:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@db:5432/traductor_embera"
+      PORT: "5000"
+      HOST: "0.0.0.0"
+      MODEL_NAME: "claude-haiku-4.5"
+    ports:
+      - "5000:5000"
+    healthcheck:
+      test: ["CMD-SHELL", "node -e \"const http=require('http'); http.get('http://localhost:5000/api/health', res=>{process.exit(res.statusCode===200?0:1)}).on('error', ()=> process.exit(1))\"
+      ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  db_data:
