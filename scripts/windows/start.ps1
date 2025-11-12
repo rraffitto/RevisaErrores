@@ -7,6 +7,42 @@ Write-Host "============================================" -ForegroundColor Cyan
 Write-Host "  Iniciando Servidor de Produccion" -ForegroundColor Cyan
 Write-Host "============================================" -ForegroundColor Cyan
 Write-Host ""
+function Ask-YesNo {
+    param(
+        [string]$Message,
+        [string]$Default = "Y"
+    )
+    $suffix = if ($Default -match '^[Yy]') { "[Y/n]" } else { "[y/N]" }
+    while ($true) {
+        $answer = Read-Host "$Message $suffix"
+        if ([string]::IsNullOrWhiteSpace($answer)) { $answer = $Default }
+        if ($answer -match '^[Yy](es)?$') { return $true }
+        if ($answer -match '^[Nn]') { return $false }
+        Write-Host "Responde 'y' o 'n'." -ForegroundColor Yellow
+    }
+}
+
+Write-Host "Verificando Node.js..." -ForegroundColor Yellow
+try {
+    $nodeVersion = (& node --version) 2>$null
+    if ($LASTEXITCODE -ne 0) { throw "no-node" }
+    Write-Host "   OK Node.js $nodeVersion detectado" -ForegroundColor Green
+} catch {
+    Write-Host "ERROR: Node.js no está instalado o no está en el PATH." -ForegroundColor Red
+    $winget = Get-Command winget -ErrorAction SilentlyContinue
+    if ($winget -and (Ask-YesNo "¿Intento instalar Node.js automáticamente con winget?" "Y")) {
+        try {
+            winget install --accept-package-agreements --accept-source-agreements --id OpenJS.NodeJS.LTS -e
+        } catch {
+            try { winget install --accept-package-agreements --accept-source-agreements --id OpenJS.NodeJS -e } catch { Write-Host "Instalación automática falló. Instala Node.js manualmente." -ForegroundColor Red; exit 1 }
+        }
+        try { $nodeVersion = (& node --version) 2>$null; Write-Host "   OK Node.js $nodeVersion detectado" -ForegroundColor Green } catch { Write-Host "No se detectó Node después de la instalación." -ForegroundColor Red; exit 1 }
+    } else {
+        Write-Host "Instala Node.js desde https://nodejs.org/ y vuelve a ejecutar este script." -ForegroundColor Yellow
+        exit 1
+    }
+}
+Write-Host ""
 
 # Verificar que .env existe, si no, crearlo automaticamente
 if (-not (Test-Path ".env")) {
@@ -50,12 +86,22 @@ Write-Host ""
 
 # Verificar que dist existe
 if (-not (Test-Path "dist")) {
-    Write-Host "ERROR: El proyecto no ha sido compilado" -ForegroundColor Red
-    Write-Host ""
-    Write-Host "Ejecuta primero:" -ForegroundColor Yellow
-    Write-Host "   npm run build" -ForegroundColor Cyan
-    Write-Host ""
-    exit 1
+    Write-Host "El proyecto no ha sido compilado (no existe 'dist')." -ForegroundColor Yellow
+    if (Ask-YesNo "¿Quieres ejecutar 'npm install' y 'npm run build' ahora?" "Y") {
+        # Instalar dependencias si no existen
+        if (-not (Test-Path "node_modules")) {
+            Write-Host "Instalando dependencias (npm install)..." -ForegroundColor Cyan
+            npm install --no-audit --no-fund
+            if ($LASTEXITCODE -ne 0) { Write-Host "Fallo npm install" -ForegroundColor Red; exit 1 }
+        }
+        Write-Host "Construyendo proyecto (npm run build)..." -ForegroundColor Cyan
+        npm run build
+        if ($LASTEXITCODE -ne 0) { Write-Host "Fallo la compilación (npm run build)" -ForegroundColor Red; exit 1 }
+        Write-Host "   OK compilación finalizada" -ForegroundColor Green
+    } else {
+        Write-Host "Ejecuta primero: npm run build" -ForegroundColor Yellow
+        exit 1
+    }
 }
 
 # Iniciar servidor con cross-env
@@ -71,3 +117,4 @@ Write-Host ""
 
 # Ejecutar el servidor
 npx cross-env NODE_ENV=production node dist/index.js
+ 

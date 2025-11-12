@@ -8,6 +8,55 @@ Write-Host "  Iniciando Servidor de Desarrollo" -ForegroundColor Cyan
 Write-Host "============================================" -ForegroundColor Cyan
 Write-Host ""
 
+function Ask-YesNo {
+    param(
+        [string]$Message,
+        [string]$Default = "Y"
+    )
+    $suffix = if ($Default -match '^[Yy]') { "[Y/n]" } else { "[y/N]" }
+    while ($true) {
+        $answer = Read-Host "$Message $suffix"
+        if ([string]::IsNullOrWhiteSpace($answer)) { $answer = $Default }
+        if ($answer -match '^[Yy](es)?$') { return $true }
+        if ($answer -match '^[Nn]') { return $false }
+        Write-Host "Responde 'y' o 'n'." -ForegroundColor Yellow
+    }
+}
+
+Write-Host "Verificando Node.js..." -ForegroundColor Yellow
+try {
+    $nodeVersion = (& node --version) 2>$null
+    if ($LASTEXITCODE -ne 0) { throw "no-node" }
+    Write-Host "   OK Node.js $nodeVersion detectado" -ForegroundColor Green
+} catch {
+    Write-Host "ERROR: Node.js no está instalado o no está en el PATH." -ForegroundColor Red
+    # Intentar instalar automáticamente con winget si está disponible
+    $winget = Get-Command winget -ErrorAction SilentlyContinue
+    if ($winget) {
+        if (Ask-YesNo "¿Quieres intentar instalar Node.js automáticamente usando winget?" "Y") {
+            Write-Host "Instalando Node.js (requiere permisos)..." -ForegroundColor Cyan
+            # Intentar instalar la versión LTS primero
+            try {
+                winget install --accept-package-agreements --accept-source-agreements --id OpenJS.NodeJS.LTS -e
+            } catch {
+                try { winget install --accept-package-agreements --accept-source-agreements --id OpenJS.NodeJS -e } catch {
+                    Write-Host "Instalación automática falló. Por favor instala Node.js manualmente desde https://nodejs.org/" -ForegroundColor Red
+                    exit 1
+                }
+            }
+            # Re-intentar detección
+            try { $nodeVersion = (& node --version) 2>$null; Write-Host "   OK Node.js $nodeVersion detectado" -ForegroundColor Green } catch { Write-Host "No se detectó Node después de la instalación." -ForegroundColor Red; exit 1 }
+        } else {
+            Write-Host "Instala Node.js desde https://nodejs.org/ y vuelve a ejecutar este script." -ForegroundColor Yellow
+            exit 1
+        }
+    } else {
+        Write-Host "No se detectó 'winget' en el sistema. Instala Node.js manualmente desde: https://nodejs.org/" -ForegroundColor Yellow
+        exit 1
+    }
+}
+Write-Host ""
+
 # Verificar que .env existe, si no, crearlo automaticamente
 if (-not (Test-Path ".env")) {
     Write-Host "El archivo .env no existe. Creandolo automaticamente..." -ForegroundColor Yellow
@@ -55,14 +104,29 @@ if ($hostChanged) {
 }
 Write-Host ""
 
-# Verificar que node_modules existe
+# Verificar que node_modules existe; si no, ofrecer instalar las dependencias
 if (-not (Test-Path "node_modules")) {
-    Write-Host "ERROR: Las dependencias no estan instaladas" -ForegroundColor Red
-    Write-Host ""
-    Write-Host "Ejecuta primero:" -ForegroundColor Yellow
-    Write-Host "   npm install" -ForegroundColor Cyan
-    Write-Host ""
-    exit 1
+    Write-Host "Las dependencias (node_modules) no están instaladas." -ForegroundColor Yellow
+    if (Ask-YesNo "¿Quieres ejecutar 'npm install' ahora?" "Y") {
+        Write-Host "Ejecutando: npm install --no-audit --no-fund" -ForegroundColor Cyan
+        $installExit = 0
+        try {
+            npm install --no-audit --no-fund
+            $installExit = $LASTEXITCODE
+        } catch {
+            $installExit = $LASTEXITCODE
+        }
+        if ($installExit -ne 0) {
+            Write-Host "Fallo la instalación de dependencias (npm install). Revisa la salida anterior." -ForegroundColor Red
+            exit 1
+        }
+        Write-Host "   OK dependencias instaladas" -ForegroundColor Green
+    } else {
+        Write-Host "Instala las dependencias con 'npm install' y vuelve a ejecutar este script." -ForegroundColor Yellow
+        exit 1
+    }
+} else {
+    Write-Host "Dependencias detectadas (node_modules)" -ForegroundColor Green
 }
 
 # Iniciar servidor con cross-env
