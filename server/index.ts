@@ -1,7 +1,7 @@
 import "dotenv/config";
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
-import { setupVite, serveStatic, log } from "./vite";
+import { log } from "./logger";
 
 const app = express();
 
@@ -62,8 +62,10 @@ app.use((req, res, next) => {
   // setting up all the other routes so the catch-all route
   // doesn't interfere with the other routes
   if (app.get("env") === "development") {
+    const { setupVite } = await import("./vite");
     await setupVite(app, server);
   } else {
+    const { serveStatic } = await import("./vite");
     serveStatic(app);
   }
 
@@ -71,11 +73,16 @@ app.use((req, res, next) => {
   // Other ports are firewalled. Default to 5000 if not specified.
   // this serves both the API and the client.
   // It is the only port that is not firewalled.
-  const port = parseInt(process.env.PORT || '5000', 10);
-  
   // Use 127.0.0.1 (IPv4) by default for Windows compatibility
   // Set HOST=0.0.0.0 for cloud deployments
-  const host = process.env.HOST || "127.0.0.1";
+  let host = process.env.HOST || "127.0.0.1";
+
+  // fuerza IPv4 si alguien puso 'localhost'
+  if (host === 'localhost') {
+    host = '127.0.0.1';
+  }
+
+  const port = parseInt(process.env.PORT || '5000', 10);
   
   server.listen({
     port,

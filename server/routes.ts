@@ -2,6 +2,8 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { z } from "zod";
+import { getModelName, callModel } from "./ai";
+import { pool } from "./db";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Translation endpoint
@@ -61,6 +63,28 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ 
         error: "Error al obtener el diccionario" 
       });
+    }
+  });
+
+  // Expose server configuration (including model) to clients
+  app.get("/api/config", async (_req, res) => {
+    try {
+      const model = getModelName();
+      res.json({ model });
+    } catch (err) {
+      res.status(500).json({ error: "Error obteniendo configuración" });
+    }
+  });
+
+  // Health endpoint: verifies server + database connectivity
+  app.get('/api/health', async (_req, res) => {
+    try {
+      // quick check to DB
+      await pool.query('SELECT 1');
+      res.json({ ok: true, db: true });
+    } catch (err: any) {
+      console.error('Health check DB error:', err?.message || err);
+      res.status(503).json({ ok: false, db: false, error: String(err) });
     }
   });
 

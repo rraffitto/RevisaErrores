@@ -1,23 +1,10 @@
 import express, { type Express } from "express";
 import fs from "fs";
 import path from "path";
-import { createServer as createViteServer, createLogger } from "vite";
+import { fileURLToPath } from "url";
 import { type Server } from "http";
-import viteConfig from "../vite.config";
 import { nanoid } from "nanoid";
-
-const viteLogger = createLogger();
-
-export function log(message: string, source = "express") {
-  const formattedTime = new Date().toLocaleTimeString("en-US", {
-    hour: "numeric",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: true,
-  });
-
-  console.log(`${formattedTime} [${source}] ${message}`);
-}
+import { log } from "./logger";
 
 export async function setupVite(app: Express, server: Server) {
   const serverOptions = {
@@ -26,16 +13,15 @@ export async function setupVite(app: Express, server: Server) {
     allowedHosts: true as const,
   };
 
+  // Lazy-load Vite only when in development. Do NOT import the project's
+  // `vite.config` here to avoid pulling dev-only plugins into the server
+  // bundle for production (which would require `vite` to be installed).
+  const { createServer: createViteServer } = await import("vite");
+
   const vite = await createViteServer({
-    ...viteConfig,
-    configFile: false,
-    customLogger: {
-      ...viteLogger,
-      error: (msg, options) => {
-        viteLogger.error(msg, options);
-        process.exit(1);
-      },
-    },
+    // Minimal config for middleware mode. We avoid spreading the full
+    // vite.config to keep the server runtime free of dev-only dependencies.
+    middlewareMode: true,
     server: serverOptions,
     appType: "custom",
   });
@@ -46,7 +32,7 @@ export async function setupVite(app: Express, server: Server) {
 
     try {
       const clientTemplate = path.resolve(
-        import.meta.dirname,
+        path.dirname(fileURLToPath(import.meta.url)),
         "..",
         "client",
         "index.html",
@@ -68,7 +54,7 @@ export async function setupVite(app: Express, server: Server) {
 }
 
 export function serveStatic(app: Express) {
-  const distPath = path.resolve(import.meta.dirname, "public");
+  const distPath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "public");
 
   if (!fs.existsSync(distPath)) {
     throw new Error(

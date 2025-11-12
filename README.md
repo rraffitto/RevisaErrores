@@ -218,6 +218,37 @@ Archivo `.env.windows` incluye:
 - `INSTALACION_WINDOWS.md` → Guía completa de instalación paso a paso
 - `COMANDOS_WINDOWS.md` → Referencia rápida de comandos PowerShell
 
+## Docker (opción rápida para desarrollo / despliegue local)
+
+Se incluye un `Dockerfile` y `docker-compose.yml` para levantar PostgreSQL y la aplicación en contenedores.
+
+1. Construir y levantar con Docker Compose:
+
+```bash
+docker compose up --build
+```
+
+2. Esto expondrá:
+- PostgreSQL en el puerto 5432
+- La aplicación en http://localhost:5000
+
+3. Si necesitas acceder por `psql` desde host local:
+
+```bash
+psql postgresql://postgres:postgres@localhost:5432/traductor_embera
+```
+
+4. Para detener y limpiar:
+
+```bash
+docker compose down -v
+```
+
+Notas:
+- El servicio `app` en `docker-compose.yml` expone `DATABASE_URL` apuntando a `db`.
+- Ajusta credenciales en `docker-compose.yml` si quieres usar otros valores.
+
+
 ## Características de Diseño
 
 ### Paleta de Colores Culturales
